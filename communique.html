@@ -4,70 +4,201 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Police Nexorienne — Communiqué</title>
+  <meta name="description" content="Détail d’un communiqué RP — Police Nexorienne (FiveM)." />
 
   <style>
-    body{
-      font-family: Arial, sans-serif;
-      margin:20px;
-      background:#070b14;
-      color:#eaf0ff;
+    :root{
+      --bg:#070b14;
+      --panel:#0e1730;
+      --panel2:#0c1327;
+      --text:#eaf0ff;
+      --muted:#b7c2e6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4da3ff;
+      --accent2:#7cf0c5;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius: 18px;
     }
-    a{color:#7cf0c5; text-decoration:none}
-    a:hover{text-decoration:underline}
-    .box{max-width:900px; margin:0 auto}
-    .meta{color:#b7c2e6; font-size:13px; margin-top:6px}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(77,163,255,.20), transparent 55%),
+        radial-gradient(900px 600px at 10% 10%, rgba(124,240,197,.12), transparent 55%),
+        linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14,23,48,.78), rgba(12,19,39,.55));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,11,20,.82), rgba(7,11,20,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:14px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width: 260px;}
+    .sealWrap{
+      width:48px;height:48px;border-radius:999px;
+      padding:3px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 52%),
+        linear-gradient(135deg, rgba(77,163,255,.85), rgba(124,240,197,.55));
+      box-shadow: 0 12px 26px rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.16);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .seal{
+      width:100%;
+      height:100%;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      object-fit:cover;
+      display:block;
+    }
+    .sealFallback{
+      width:100%;
+      height:100%;
+      border-radius:999px;
+      display:none;
+      place-items:center;
+      font-size:20px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand h1{font-size:14px; line-height:1.1; margin:0}
+    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:13px;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none;
+      line-height:1;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(77,163,255,.35);
+      background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
+      color:#07111f;
+      font-weight:850;
+    }
+
+    main{padding:26px 0 34px}
+    .titleRow{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; margin-bottom:14px;
+    }
+    .titleRow h2{margin:0; font-size:18px}
+    .titleRow p{margin:0; color:var(--muted); font-size:12.5px}
+
     .content{
-      margin-top:16px;
-      padding:16px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      background:rgba(255,255,255,.04);
       white-space:pre-wrap;
-      line-height:1.6;
+      line-height:1.7;
+      color: var(--text);
+    }
+
+    footer{
+      padding:26px 0 34px;
+      border-top:1px solid var(--line);
+      margin-top: 18px;
+      color: var(--muted);
+      font-size:12px;
     }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <p><a href="communiques.html">← Tous les communiqués</a></p>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="sealWrap" aria-hidden="true">
+        <img class="seal" src="logo.png" alt="Logo Police Nexorienne"
+             onerror="this.style.display='none'; document.getElementById('sealFallback').style.display='grid';">
+        <div class="sealFallback" id="sealFallback">🛡️</div>
+      </div>
+      <div>
+        <h1>Police Nexorienne</h1>
+        <p>RP FiveM — Communiqué</p>
+      </div>
+    </div>
 
-    <h1 id="titre">Chargement…</h1>
-    <div class="meta" id="meta"></div>
-    <div class="content" id="contenu"></div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <a class="btn" href="communiques.html">← Tous</a>
+      <a class="btn" href="index.html">Accueil</a>
+    </div>
   </div>
+</header>
 
-  <!-- données -->
-  <script src="communiques.js?v=1"></script>
+<main class="container">
+  <section class="card" style="padding:18px;">
+    <div class="titleRow">
+      <h2 id="titre">Chargement…</h2>
+      <p id="meta" style="margin:0; color:var(--muted); font-size:12.5px"></p>
+    </div>
 
-  <!-- logique -->
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = (params.get("id") || "").trim();
+    <div class="card" style="padding:16px; background:rgba(255,255,255,.03); border:1px solid var(--line); box-shadow:none;">
+      <div class="content" id="contenu">—</div>
+    </div>
+  </section>
+</main>
 
-    const titreEl = document.getElementById("titre");
-    const metaEl = document.getElementById("meta");
-    const contenuEl = document.getElementById("contenu");
+<footer>
+  <div class="container">
+    <strong>Police Nexorienne</strong><br/>
+    Site fictif RP FiveM — aucun service réel.
+  </div>
+</footer>
 
-    if (!id) {
+<script src="communiques.js?v=1"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = (params.get("id") || "").trim();
+
+  const titreEl = document.getElementById("titre");
+  const metaEl = document.getElementById("meta");
+  const contenuEl = document.getElementById("contenu");
+
+  if (!id) {
+    titreEl.textContent = "Communiqué introuvable";
+    contenuEl.textContent = "Aucun identifiant dans l’URL. Retourne à la liste.";
+  } else {
+    const list = window.COMMUNIQUES || [];
+    const c = list.find(x => String(x.id).trim() === id);
+
+    if (!c) {
       titreEl.textContent = "Communiqué introuvable";
       contenuEl.textContent =
-        "Aucun identifiant dans l’URL.\nRetourne à la liste et clique sur « Lire → ».";
+        "ID demandé : " + id + "\n\nIDs disponibles :\n" +
+        list.map(x => "- " + x.id).join("\n");
     } else {
-      const list = window.COMMUNIQUES || [];
-      const c = list.find(x => String(x.id) === id);
-
-      if (!c) {
-        titreEl.textContent = "Communiqué introuvable";
-        contenuEl.textContent =
-          "ID demandé : " + id + "\n\nIDs disponibles :\n" +
-          list.map(x => "- " + x.id).join("\n");
-      } else {
-        titreEl.textContent = c.titre;
-        metaEl.textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
-        contenuEl.textContent = c.contenu;
-        document.title = "Police Nexorienne — " + c.titre;
-      }
+      titreEl.textContent = c.titre;
+      metaEl.textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
+      contenuEl.textContent = c.contenu;
+      document.title = "Police Nexorienne — " + c.titre;
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
