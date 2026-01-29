@@ -3,30 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Police Nexorienne — Communiqué</title>
+  <title>Police Nexorienne — Communiqués</title>
 </head>
 <body>
-  <p><a href="communiques.html">← Tous les communiqués</a></p>
-  <h1 id="titre">Communiqué</h1>
-  <div id="meta"></div>
-  <pre id="contenu" style="white-space:pre-wrap;"></pre>
+  <h1>Communiqués</h1>
+  <p><a href="index.html">← Retour</a></p>
+
+  <div id="liste"></div>
 
   <script src="communiques.js"></script>
   <script>
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id");
+    const box = document.getElementById("liste");
+    const items = (window.COMMUNIQUES || [])
+      .slice()
+      .sort((a,b) => b.date.localeCompare(a.date));
 
-    const c = (window.COMMUNIQUES || []).find(x => x.id === id);
-
-    if (!c) {
-      document.getElementById("titre").textContent = "Communiqué introuvable";
-      document.getElementById("meta").textContent = "";
-      document.getElementById("contenu").textContent = "Vérifie le lien.";
+    if (!items.length) {
+      box.textContent = "Aucun communiqué pour le moment.";
     } else {
-      document.getElementById("titre").textContent = c.titre;
-      document.getElementById("meta").textContent = `${c.date} — ${c.tag || ""}`;
-      document.getElementById("contenu").textContent = c.contenu;
-      document.title = "Police Nexorienne — " + c.titre;
+      box.innerHTML = items.map(c => `
+        <article style="padding:12px; border:1px solid #ccc; margin:10px 0;">
+          <div><strong>${c.titre}</strong></div>
+          <div>${c.date} — ${c.tag || ""}</div>
+          <div style="margin-top:8px">
+            <a href="communique.html?id=${encodeURIComponent(c.id)}">Lire →</a>
+          </div>
+        </article>
+      `).join("");
     }
   </script>
 </body>
