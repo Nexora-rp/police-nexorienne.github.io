@@ -6,138 +6,58 @@
   <title>Police Nexorienne</title>
 
   <style>
-    :root{
-      --bg:#070b14;
-      --panel:#0e1730;
-      --text:#eaf0ff;
-      --muted:#b7c2e6;
-      --line:rgba(255,255,255,.10);
-      --accent:#4da3ff;
-      --accent2:#7cf0c5;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 80% -10%, rgba(77,163,255,.18), transparent 55%),
-        radial-gradient(900px 600px at 10% 10%, rgba(124,240,197,.10), transparent 55%),
-        linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
-      padding:24px;
-    }
-    .card{
-      width:min(520px, 92vw);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:22px;
-      background: linear-gradient(180deg, rgba(14,23,48,.86), rgba(12,19,39,.62));
-      text-align:center;
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
-    }
-    h1{margin:0 0 8px; font-size:28px}
-    .muted{color:var(--muted); font-size:13px; line-height:1.5}
-    .row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px}
-
-    .btn{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color:var(--text);
-      padding:12px 14px;
-      border-radius:999px;
-      cursor:pointer;
-      font-size:14px;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .btn:hover{background: rgba(255,255,255,.09)}
-    .btn.primary{
-      border-color: rgba(77,163,255,.35);
-      background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
-      color:#07111f;
-      font-weight:850;
-    }
-
-    .status{margin-top:12px; font-size:13px; color:var(--muted)}
-    .ok{color: rgba(124,240,197,.95)}
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Arial;background:#070b14;color:#eaf0ff;padding:24px}
+    .card{width:min(520px,92vw);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;background:#0e1730;text-align:center}
+    .btn{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#eaf0ff;padding:12px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+    .btn.primary{background:linear-gradient(135deg,#4da3ff,#7cf0c5);color:#07111f;font-weight:800;border-color:rgba(77,163,255,.35)}
+    .muted{color:#b7c2e6;font-size:13px;line-height:1.5}
+    .status{margin-top:12px;font-size:13px;color:#b7c2e6;word-break:break-word}
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
   <div class="card">
     <h1>Police Nexorienne</h1>
-    <p class="muted">Connexion Agents via Discord</p>
+    <p class="muted">Connexion agents via Discord</p>
 
-    <div class="row" id="loggedOut">
-      <button class="btn primary" id="loginDiscord">Connexion Discord</button>
-    </div>
+    <button class="btn primary" id="loginDiscord">Connexion Discord</button>
 
-    <div class="row" id="loggedIn" style="display:none;">
-      <a class="btn primary" href="service.html">Accéder aux services</a>
-      <button class="btn" id="logout">Déconnexion</button>
-    </div>
-
-    <div class="status" id="status">Statut : …</div>
+    <div class="status" id="status">Statut : prêt</div>
   </div>
 
   <script>
-    // ✅ Remplace par tes valeurs Supabase
+    const statusEl = document.getElementById("status");
+
+    // 1) Mets tes vraies valeurs ici
     const SUPABASE_URL = "https://kqasldzyfixbmpnjjvyc.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxYXNsZHp5Zml4Ym1wbmpqdnljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2Nzk2OTYsImV4cCI6MjA4NTI1NTY5Nn0.gVBcxqvYFq3cRwjWYgOZwjwGhnh5poXpEhUlnsQjKWA";
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const loggedOut = document.getElementById("loggedOut");
-    const loggedIn  = document.getElementById("loggedIn");
-    const status    = document.getElementById("status");
-
-    async function refreshUI() {
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        loggedOut.style.display = "flex";
-        loggedIn.style.display = "none";
-        status.textContent = "Statut : non connecté";
-        return;
-      }
-
-      const user = session.user;
-      const name =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
-        user.user_metadata?.preferred_username ||
-        "Agent";
-
-      loggedOut.style.display = "none";
-      loggedIn.style.display = "flex";
-      status.innerHTML = `Statut : <span class="ok">connecté</span> — ${name}`;
+    // 2) Vérifie que la lib Supabase a bien chargé
+    if (!window.supabase) {
+      statusEl.textContent = "ERREUR : la librairie Supabase ne charge pas (CDN bloqué).";
+      throw new Error("Supabase CDN not loaded");
     }
 
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     document.getElementById("loginDiscord").addEventListener("click", async () => {
-      status.textContent = "Redirection vers Discord...";
-      await supabase.auth.signInWithOAuth({
-        provider: "discord",
-        options: {
-          redirectTo: "https://nexora-rp.github.io/police-nexorienne.github.io/"
-        }
-      });
-    });
+      try {
+        statusEl.textContent = "Redirection vers Discord...";
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: "discord",
+          options: {
+            redirectTo: "https://nexora-rp.github.io/police-nexorienne.github.io/"
+          }
+        });
+        if (error) throw error;
 
-    document.getElementById("logout").addEventListener("click", async () => {
-      await supabase.auth.signOut();
-      await refreshUI();
+        // Normalement tu es redirigé avant d’arriver ici
+        statusEl.textContent = "OK (en attente redirection)...";
+      } catch (e) {
+        statusEl.textContent = "ERREUR : " + (e?.message || e);
+      }
     });
-
-    refreshUI();
-    supabase.auth.onAuthStateChange(() => refreshUI());
   </script>
 </body>
 </html>
