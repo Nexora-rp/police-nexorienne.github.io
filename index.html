@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Police Nexorienne — Accueil</title>
   <meta name="description" content="Portail RP FiveM de la Police Nexorienne : infos, recrutement, services et contact." />
+
   <style>
     :root{
       --bg:#070b14;
@@ -19,6 +20,7 @@
       --shadow: 0 18px 40px rgba(0,0,0,.35);
       --radius: 18px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -30,8 +32,10 @@
         linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
       overflow-x:hidden;
     }
+
     a{color:inherit}
     .container{width:min(1100px, 92vw); margin:0 auto;}
+
     .card{
       border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(14,23,48,.78), rgba(12,19,39,.55));
@@ -39,6 +43,7 @@
       box-shadow: var(--shadow);
     }
 
+    /* Header */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
@@ -46,8 +51,11 @@
       border-bottom:1px solid var(--line);
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0; gap:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
     }
     .brand{display:flex; align-items:center; gap:12px;}
     .badge{
@@ -57,6 +65,7 @@
       box-shadow: 0 10px 22px rgba(0,0,0,.35);
       display:grid; place-items:center;
       border:1px solid rgba(255,255,255,.18);
+      user-select:none;
     }
     .brand h1{font-size:14px; line-height:1.1; margin:0}
     .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
@@ -70,16 +79,21 @@
       color:var(--muted);
     }
     nav a:hover{color:var(--text); border-color: var(--line); background: rgba(255,255,255,.05)}
+
     .btn{
-      appearance:none; border:1px solid var(--line);
+      appearance:none;
+      border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       color:var(--text);
       padding:10px 12px;
       border-radius:999px;
       font-size:13px;
       cursor:pointer;
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       text-decoration:none;
+      line-height:1;
     }
     .btn:hover{background: rgba(255,255,255,.07)}
     .btn.primary{
@@ -88,20 +102,18 @@
       color:#07111f;
       font-weight:800;
     }
-    .btn.danger{
-      border-color: rgba(255,77,109,.35);
-      background: rgba(255,77,109,.12);
-      color:#ffdbe2;
-    }
 
+    /* Hero */
     .hero{padding:40px 0 18px}
     .heroGrid{display:grid; grid-template-columns: 1.25fr .75fr; gap:14px;}
     .heroMain{padding:26px}
     .kicker{
       display:inline-flex; align-items:center; gap:8px;
       border:1px solid var(--line);
-      padding:7px 10px; border-radius:999px;
-      color:var(--muted); font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:12px;
       background: rgba(255,255,255,.03);
     }
     .hero h2{
@@ -111,17 +123,20 @@
       letter-spacing:-.02em;
     }
     .hero p{margin:0 0 18px; color:var(--muted); font-size:14.5px; line-height:1.6; max-width:60ch}
+
     .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
     .pill{
       border:1px solid var(--line);
       padding:10px 12px;
       border-radius: 14px;
       background: rgba(255,255,255,.03);
-      min-width: 160px; flex:1;
+      min-width: 160px;
+      flex:1;
     }
     .pill strong{display:block; font-size:13px}
     .pill span{display:block; color:var(--muted); font-size:12px; margin-top:4px}
 
+    /* Side */
     .side{padding:18px; display:flex; flex-direction:column; gap:12px}
     .sideBox{
       padding:16px;
@@ -131,11 +146,14 @@
     }
     .sideBox h3{margin:0 0 8px; font-size:13px}
     .sideBox p{margin:0; color:var(--muted); font-size:12.5px; line-height:1.55}
-    .alert{border-color: rgba(255,77,109,.28); background: linear-gradient(180deg, rgba(255,77,109,.15), rgba(255,77,109,.06));}
+    .alert{
+      border-color: rgba(255,77,109,.28);
+      background: linear-gradient(180deg, rgba(255,77,109,.15), rgba(255,77,109,.06));
+    }
     .ok{color: rgba(124,240,197,.95)}
-    .warn{color: rgba(255,219,226,.95)}
     .fine{font-size:11.5px; color:rgba(183,194,230,.88); line-height:1.5}
 
+    /* Sections */
     section{padding:22px 0}
     .sectionTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:14px;}
     .sectionTitle h3{margin:0; font-size:16px}
@@ -150,20 +168,24 @@
       background: linear-gradient(180deg, rgba(14,23,48,.65), rgba(12,19,39,.45));
       box-shadow: 0 12px 26px rgba(0,0,0,.25);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      min-height: 130px;
+      min-height: 120px;
     }
     .tile:hover{transform: translateY(-2px); background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16)}
-    .tile h4{margin:10px 0 6px; font-size:14px}
+    .tile h4{margin:0 0 8px; font-size:14px}
     .tile p{margin:0; color:var(--muted); font-size:12.5px; line-height:1.55}
     .tile .link{
       margin-top:12px;
-      display:inline-flex; gap:8px; align-items:center;
-      font-size:12.5px; text-decoration:none;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-size:12.5px;
+      text-decoration:none;
       border-bottom:1px dashed rgba(255,255,255,.22);
       padding-bottom:2px;
     }
     .tile .link:hover{border-bottom-color: rgba(255,255,255,.45)}
 
+    /* Footer */
     footer{
       padding:26px 0 34px;
       border-top:1px solid var(--line);
@@ -172,10 +194,8 @@
       font-size:12px;
     }
     .foot{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap;}
-    .miniLinks{display:flex; gap:10px; flex-wrap:wrap}
-    .miniLinks a{color:var(--muted); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.18)}
-    .miniLinks a:hover{color:var(--text); border-bottom-color: rgba(255,255,255,.4)}
 
+    /* Responsive */
     @media (max-width: 900px){
       .heroGrid{grid-template-columns: 1fr}
       .tile{grid-column: span 6}
@@ -186,6 +206,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -200,12 +221,15 @@
 
     <nav aria-label="Pages">
       <ul>
-        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html" aria-current="page">Accueil</a></li>
         <li><a href="service.html">Services</a></li>
       </ul>
     </nav>
 
     <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <a class="btn primary" href="service.html">Accéder aux services</a>
+      <a class="btn" href="#contact">Discord</a>
+    </div>
   </div>
 </header>
 
@@ -214,10 +238,11 @@
     <div class="heroGrid">
       <div class="card heroMain">
         <span class="kicker">📌 Portail officiel (fictif) — République de Nexoria</span>
+
         <h2>Bienvenue au Commissariat Central.</h2>
         <p>
           Ce site sert de <strong>site RP</strong> pour la Police Nexorienne : présentation, services,
-          et infos utiles pour les citoyens et les agents.
+          et informations utiles pour les citoyens et les agents.
         </p>
 
         <div class="pillRow">
@@ -236,7 +261,7 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px">
-          <a class="btn primary" href="service.html">Accéder aux services</a>
+          <a class="btn primary" href="service.html">Voir les services</a>
           <a class="btn" href="#recrutement">Recrutement</a>
           <a class="btn" href="#contact">Contact</a>
         </div>
@@ -245,23 +270,21 @@
       <aside class="card side">
         <div class="sideBox alert" id="infos">
           <h3>Urgences RP</h3>
-          <p>
-            <strong>police</strong>
-          </p>
-          <p>
-            <strong>gendarmerie</strong>
-          </p>
+          <p><strong>Police :</strong> <span class="ok">17</span></p>
+          <p><strong>Urgence générale :</strong> 112</p>
+          <p class="fine" style="margin-top:10px">⚠️ Fictif / RP : aucun service réel.</p>
         </div>
 
         <div class="sideBox">
           <h3>Horaires d’accueil</h3>
-          <p>24/7 selon effectifs.</p>
+          <p>Ouvert <strong>24/7</strong> selon effectifs.</p>
         </div>
+
         <div class="sideBox">
-          <h3> Services RP</h3>
-          <p>24/7 selon effectifs.</p>
+          <h3>Services RP</h3>
+          <p>Dépôts RP, objets trouvés, rendez-vous, orientation.</p>
         </div>
-        
+
         <div class="sideBox">
           <h3>Annonce RP</h3>
           <p><span class="ok">✓</span> Opération “Bouclier” : contrôles renforcés en centre-ville (RP).</p>
@@ -282,19 +305,32 @@
         <p>Patrouille, radio, contrôle, procédures, relation citoyenne.</p>
         <a class="link" href="#contact">Candidater →</a>
       </article>
+
+      <article class="tile">
+        <h4>Brigade routière</h4>
+        <p>Accidents, infractions, escortes et opérations de prévention RP.</p>
+        <a class="link" href="#contact">Rejoindre →</a>
+      </article>
+
+      <article class="tile">
+        <h4>Unité d’enquête</h4>
+        <p>Scènes, indices, interrogatoires et suivi de dossiers RP.</p>
+        <a class="link" href="#contact">Postuler →</a>
+      </article>
     </div>
   </section>
 
   <section id="contact">
     <div class="sectionTitle">
       <h3>Contact</h3>
+      <p>Infos officielles RP (Discord).</p>
     </div>
 
     <div class="card" style="padding:18px;">
       <p style="margin:0; color:var(--muted); line-height:1.6">
         <strong>Commissariat Central</strong><br/>
-        Boulevard de la republique, Seine-Nexorienne (03)<br/>
-        Discord : <em>https://discord.gg/JR5Zj5yj</em>
+        Boulevard de la République, Seine-Nexorienne (03)<br/>
+        Discord : <a href="https://discord.gg/JR5Zj5yj" target="_blank" rel="noopener noreferrer">discord.gg/JR5Zj5yj</a>
       </p>
     </div>
   </section>
