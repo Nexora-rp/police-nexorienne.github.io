@@ -1,53 +1,31 @@
 // communiques.js
 window.COMMUNIQUES = [
-  {
-    id: "bouclier-01",
-    titre: "Opération « Bouclier » — contrôles renforcés",
+    {
+    id: "alerte-recherche-urgent",
+    titre: "🚨 AVIS DE RECHERCHE URGENT — individu activement recherché",
     date: "2026-01-29",
-    tag: "Sécurité",
-    contenu: `Dans le cadre de l’opération RP « Bouclier »,
-la Police Nexorienne procède à des contrôles renforcés :
-
-• Identité
-• Véhicules
-• Zones sensibles
-
-Les citoyens sont invités à coopérer.
-Tout refus pourra entraîner une procédure RP.
-
-— Commissariat Central`
-  },
-  {
-    id: "recherche-02",
-    titre: "Avis de recherche RP — individu recherché",
-    date: "2026-01-30",
-    tag: "Recherche",
-    contenu: `Un individu est actuellement recherché dans le cadre d’une enquête RP.
-
-Description RP :
-• Sexe : Masculin
-• Vêtements sombres
-• Dernière localisation : centre-ville
-
-Merci de ne pas intervenir vous-même.
-Toute information RP doit être transmise à la Police Nexorienne.
-
-— Brigade d’Enquête`
-  },
-  {
-    id: "route-03",
-    titre: "Fermeture temporaire de voie RP",
-    date: "2026-01-30",
-    tag: "Circulation",
-    contenu: `En raison d’une intervention RP,
-une fermeture temporaire de circulation est mise en place :
-
-• Axe concerné : Boulevard de la République
-• Durée estimée : 30 minutes RP
-
-Merci d’emprunter les itinéraires alternatifs.
-Nous vous remercions de votre compréhension.
-
-— Police Nexorienne`
+    tag: "Alerte / Recherche",
+    important: true,
+    contenu: `AVIS DE RECHERCHE URGENT (RP)
+  
+  La Police Nexorienne informe la population qu’un groupe d'individus est
+  activement recherché dans le cadre d’une enquête prioritaire.
+  
+  ⚠️ Le groupe d'individus est considéré comme POTENTIELLEMENT DANGEREUX.
+  
+  Description RP :
+  • Nom : Camorra
+  • Tenue : vêtements sombres
+  • Dernière localisation connue : centre-ville
+  
+  Consignes RP :
+  • Ne pas tenter d’intervenir
+  • Éviter tout contact
+  • Signaler immédiatement toute information aux forces de l’ordre
+  
+  Toute obstruction ou diffusion de fausses informations pourra entraîner
+  des sanctions RP.
+  
+  — Direction de la Police Nexorienne`
   }
 ];
