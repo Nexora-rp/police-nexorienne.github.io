@@ -24,18 +24,31 @@
 
   <script src="communiques.js"></script>
   <script>
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id");
-    const c = (window.COMMUNIQUES || []).find(x => x.id === id);
+    const params = new URLSearchParams(window.location.search);
+    const id = (params.get("id") || "").trim();
 
-    if (!c) {
-      document.getElementById("titre").textContent = "Communiqué introuvable";
-      document.getElementById("contenu").textContent = "Vérifie le lien ou l’identifiant.";
+    const titreEl = document.getElementById("titre");
+    const metaEl = document.getElementById("meta");
+    const contenuEl = document.getElementById("contenu");
+
+    if (!id) {
+      titreEl.textContent = "Communiqué introuvable";
+      contenuEl.textContent = "Aucun identifiant dans l’URL.\nRetourne à la liste et clique sur “Lire →”.";
     } else {
-      document.getElementById("titre").textContent = c.titre;
-      document.getElementById("meta").textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
-      document.getElementById("contenu").textContent = c.contenu;
-      document.title = "Police Nexorienne — " + c.titre;
+      const list = window.COMMUNIQUES || [];
+      const c = list.find(x => String(x.id).trim() === id);
+
+      if (!c) {
+        titreEl.textContent = "Communiqué introuvable";
+        contenuEl.textContent =
+          "ID reçu : " + id + "\n\nIDs disponibles :\n" +
+          list.map(x => "- " + x.id).join("\n");
+      } else {
+        titreEl.textContent = c.titre;
+        metaEl.textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
+        contenuEl.textContent = c.contenu;
+        document.title = "Police Nexorienne — " + c.titre;
+      }
     }
   </script>
 </body>
