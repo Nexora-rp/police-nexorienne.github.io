@@ -4,59 +4,257 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Police Nexorienne — Services</title>
+  <meta name="description" content="Services RP — Police Nexorienne (FiveM)." />
 
   <style>
+    :root{
+      --bg:#070b14;
+      --panel:#0e1730;
+      --panel2:#0c1327;
+      --text:#eaf0ff;
+      --muted:#b7c2e6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4da3ff;
+      --accent2:#7cf0c5;
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family: Arial, Helvetica, sans-serif;
-      background:#070b14;
-      color:#eaf0ff;
-      padding:24px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(77,163,255,.20), transparent 55%),
+        radial-gradient(900px 600px at 10% 10%, rgba(124,240,197,.12), transparent 55%),
+        linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
+      overflow-x:hidden;
     }
+    a{color:inherit}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
     .card{
-      width:min(720px, 92vw);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:26px;
-      background:#0e1730;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14,23,48,.78), rgba(12,19,39,.55));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
-    h1{margin:0 0 10px}
-    p{color:#b7c2e6; line-height:1.6}
-    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
-    .btn{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color:#eaf0ff;
-      padding:12px 16px;
+
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,11,20,.82), rgba(7,11,20,.55));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:14px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width: 260px;}
+    .sealWrap{
+      width:48px;height:48px;border-radius:999px;
+      padding:3px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 52%),
+        linear-gradient(135deg, rgba(77,163,255,.85), rgba(124,240,197,.55));
+      box-shadow: 0 12px 26px rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.16);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .seal{
+      width:100%;
+      height:100%;
       border-radius:999px;
-      text-decoration:none;
-      font-size:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      object-fit:cover;
+      display:block;
     }
-    .btn:hover{background: rgba(255,255,255,.10)}
+    .sealFallback{
+      width:100%;
+      height:100%;
+      border-radius:999px;
+      display:none;
+      place-items:center;
+      font-size:20px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand h1{font-size:14px; line-height:1.1; margin:0}
+    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+
+    nav ul{list-style:none; display:flex; gap:10px; padding:0; margin:0; flex-wrap:wrap;}
+    nav a{
+      text-decoration:none;
+      padding:9px 12px;
+      border:1px solid transparent;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    nav a:hover{color:var(--text); border-color: var(--line); background: rgba(255,255,255,.05)}
+
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:13px;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none;
+      line-height:1;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(77,163,255,.35);
+      background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
+      color:#07111f;
+      font-weight:850;
+    }
+
+    main{padding:26px 0 34px}
+    .titleRow{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; margin-bottom:14px;
+    }
+    .titleRow h2{margin:0; font-size:18px}
+    .titleRow p{margin:0; color:var(--muted); font-size:12.5px}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px;}
+    .tile{
+      grid-column: span 4;
+      padding:16px;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14,23,48,.65), rgba(12,19,39,.45));
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      min-height: 130px;
+    }
+    .tile:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.16);
+    }
+    .tile h3{margin:0 0 8px; font-size:14px}
+    .tile p{margin:0; color:var(--muted); font-size:12.8px; line-height:1.55}
+    .link{
+      margin-top:12px;
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12.5px; text-decoration:none;
+      border-bottom:1px dashed rgba(255,255,255,.22);
+      padding-bottom:2px;
+    }
+    .link:hover{border-bottom-color: rgba(255,255,255,.45)}
+
+    footer{
+      padding:26px 0 34px;
+      border-top:1px solid var(--line);
+      margin-top: 18px;
+      color: var(--muted);
+      font-size:12px;
+    }
+
+    @media (max-width: 900px){
+      .tile{grid-column: span 6}
+    }
+    @media (max-width: 560px){
+      nav ul{display:none}
+      .tile{grid-column: span 12}
+    }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Services RP</h1>
-    <p>
-      Bienvenue sur la page des services RP de la Police Nexorienne.
-    </p>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="sealWrap" aria-hidden="true">
+        <img class="seal" src="logo.png" alt="Logo Police Nexorienne"
+             onerror="this.style.display='none'; document.getElementById('sealFallback').style.display='grid';">
+        <div class="sealFallback" id="sealFallback">🛡️</div>
+      </div>
+      <div>
+        <h1>Police Nexorienne</h1>
+        <p>RP FiveM — Services</p>
+      </div>
+    </div>
 
-    <ul>
-      <li>Dépôt de plainte RP</li>
-      <li>Convocations RP</li>
-      <li>Rendez-vous RP</li>
-      <li>Informations citoyennes</li>
-    </ul>
+    <nav aria-label="Navigation">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="service.html" aria-current="page">Services</a></li>
+      </ul>
+    </nav>
 
-    <div class="row">
-      <a class="btn" href="index.html">← Retour à l’accueil</a>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <a class="btn" href="index.html">← Retour</a>
+      <a class="btn primary" href="#liste">Voir la liste</a>
     </div>
   </div>
+</header>
+
+<main class="container">
+  <section class="card" style="padding:18px;">
+    <div class="titleRow">
+      <h2>Services RP</h2>
+      <p>Démarches et accès rapides (RP).</p>
+    </div>
+    <p style="margin:0; color:var(--muted); line-height:1.6">
+      Cette page liste les services RP disponibles au commissariat. Ajoute/retire des cartes quand tu veux.
+    </p>
+  </section>
+
+  <section id="liste" style="padding:22px 0">
+    <div class="grid">
+      <article class="tile">
+        <h3>Plainte RP</h3>
+        <p>Déposer une plainte RP, ouvrir un dossier et être orienté.</p>
+        <a class="link" href="#">Ouvrir →</a>
+      </article>
+
+      <article class="tile">
+        <h3>Convocation RP</h3>
+        <p>Recevoir une convocation, fixer un rendez-vous, audition RP.</p>
+        <a class="link" href="#">Consulter →</a>
+      </article>
+
+      <article class="tile">
+        <h3>Objets trouvés</h3>
+        <p>Déclarer un objet perdu/trouvé et organiser une restitution RP.</p>
+        <a class="link" href="#">Déclarer →</a>
+      </article>
+
+      <article class="tile">
+        <h3>Rendez-vous</h3>
+        <p>Prendre un rendez-vous RP avec l’accueil ou une unité.</p>
+        <a class="link" href="#">Demander →</a>
+      </article>
+
+      <article class="tile">
+        <h3>Infos citoyennes</h3>
+        <p>Horaires RP, consignes, communiqués, prévention.</p>
+        <a class="link" href="#">Voir →</a>
+      </article>
+
+      <article class="tile">
+        <h3>Recrutement</h3>
+        <p>Informations sur les postes, critères RP, contact candidature.</p>
+        <a class="link" href="index.html#recrutement">Accéder →</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <strong>Police Nexorienne</strong><br/>
+    Site fictif RP FiveM — aucun service réel.
+  </div>
+</footer>
+
 </body>
 </html>
