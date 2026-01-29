@@ -9,9 +9,9 @@
     :root{
       --bg:#070b14;
       --panel:#0e1730;
-      --line:rgba(255,255,255,.10);
       --text:#eaf0ff;
       --muted:#b7c2e6;
+      --line:rgba(255,255,255,.10);
       --accent:#4da3ff;
       --accent2:#7cf0c5;
     }
@@ -30,32 +30,22 @@
         linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
       padding:24px;
     }
-
     .card{
-      width:min(560px, 92vw);
+      width:min(520px, 92vw);
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(14,23,48,.82), rgba(12,19,39,.60));
       border-radius:18px;
-      padding:28px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      padding:22px;
+      background: linear-gradient(180deg, rgba(14,23,48,.86), rgba(12,19,39,.62));
       text-align:center;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
     }
-
-    img{display:block; margin:0 auto 14px; max-width:160px; height:auto}
-    h1{margin:0 0 8px; font-size:28px; letter-spacing:-.02em}
-    p{margin:0 0 18px; color:var(--muted); line-height:1.6}
-
-    .row{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
+    h1{margin:0 0 8px; font-size:28px}
+    .muted{color:var(--muted); font-size:13px; line-height:1.5}
+    .row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px}
 
     .btn{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.06);
       color:var(--text);
       padding:12px 14px;
       border-radius:999px;
@@ -66,202 +56,88 @@
       align-items:center;
       gap:8px;
     }
-    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn:hover{background: rgba(255,255,255,.09)}
     .btn.primary{
       border-color: rgba(77,163,255,.35);
       background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
       color:#07111f;
-      font-weight:800;
+      font-weight:850;
     }
 
-    .status{
-      margin-top:14px;
-      font-size:12.5px;
-      color:var(--muted);
-    }
-
-    /* Modal */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-    }
-    .modal{
-      width:min(520px, 92vw);
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(14,23,48,.92), rgba(12,19,39,.80));
-      border-radius:18px;
-      padding:18px;
-      box-shadow: 0 22px 55px rgba(0,0,0,.5);
-    }
-    .modalHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .modalHeader h2{margin:0; font-size:16px}
-    .close{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-    }
-
-    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px; text-align:left}
-    input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      color:var(--text);
-      outline:none;
-    }
-    input:focus{
-      border-color: rgba(77,163,255,.45);
-      box-shadow: 0 0 0 3px rgba(77,163,255,.12);
-    }
-    .hint{
-      margin-top:10px;
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-    .error{color:#ffdbe2}
+    .status{margin-top:12px; font-size:13px; color:var(--muted)}
     .ok{color: rgba(124,240,197,.95)}
   </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
   <div class="card">
-    <img src="logo_PN.png" alt="Logo Police Nexorienne">
     <h1>Police Nexorienne</h1>
-    <p>Portail RP FiveM — accès citoyen & accès agents</p>
+    <p class="muted">Connexion Agents via Discord</p>
 
-    <div class="row" id="guestActions">
-      <button class="btn primary" id="openLogin">Connexion</button>
-      <a class="btn" href="service.html">Services (public)</a>
+    <div class="row" id="loggedOut">
+      <button class="btn primary" id="loginDiscord">Connexion Discord</button>
     </div>
 
-    <div class="row" id="userActions" style="display:none">
+    <div class="row" id="loggedIn" style="display:none;">
       <a class="btn primary" href="service.html">Accéder aux services</a>
       <button class="btn" id="logout">Déconnexion</button>
     </div>
 
-    <div class="status" id="statusText"></div>
-  </div>
-
-  <!-- Modal -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Connexion">
-      <div class="modalHeader">
-        <h2>Connexion (démo)</h2>
-        <button class="close" id="closeLogin">Fermer</button>
-      </div>
-
-      <label for="username">Identifiant</label>
-      <input id="username" placeholder="Ex. Agent_Nexo" autocomplete="username">
-
-      <label for="password">Mot de passe</label>
-      <input id="password" type="password" placeholder="••••••••" autocomplete="current-password">
-
-      <div class="row" style="justify-content:flex-end; margin-top:12px">
-        <button class="btn primary" id="doLogin">Se connecter</button>
-      </div>
-
-      <div class="hint">
-        <span class="error">⚠️ Ceci est une connexion “démo”</span> (GitHub Pages = pas de serveur).<br>
-        Pour tester : <strong>agent</strong> / <strong>nexoria</strong>
-      </div>
-
-      <div class="hint" id="loginMsg"></div>
-    </div>
+    <div class="status" id="status">Statut : …</div>
   </div>
 
   <script>
-    // --- Connexion DEMO (pas sécurisée) ---
-    // Identifiants de test
-    const DEMO_USER = "agent";
-    const DEMO_PASS = "nexoria";
+    // ✅ Remplace par tes valeurs Supabase
+    const SUPABASE_URL = "https://kqasldzyfixbmpnjjvyc.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_GD0a7rRylK1QnEaFLQXPEQ_WDC1uN1h";
 
-    const overlay = document.getElementById("overlay");
-    const openLogin = document.getElementById("openLogin");
-    const closeLogin = document.getElementById("closeLogin");
-    const doLogin = document.getElementById("doLogin");
-    const logout = document.getElementById("logout");
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const guestActions = document.getElementById("guestActions");
-    const userActions = document.getElementById("userActions");
-    const statusText = document.getElementById("statusText");
-    const loginMsg = document.getElementById("loginMsg");
+    const loggedOut = document.getElementById("loggedOut");
+    const loggedIn  = document.getElementById("loggedIn");
+    const status    = document.getElementById("status");
 
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
+    async function refreshUI() {
+      const { data: { session } } = await supabase.auth.getSession();
 
-    function setLoggedIn(isLoggedIn, displayName="") {
-      if (isLoggedIn) {
-        localStorage.setItem("pn_logged", "1");
-        localStorage.setItem("pn_name", displayName || "Agent");
-        guestActions.style.display = "none";
-        userActions.style.display = "flex";
-        statusText.innerHTML = `Statut : <span class="ok">Connecté</span> — ${localStorage.getItem("pn_name")}`;
-      } else {
-        localStorage.removeItem("pn_logged");
-        localStorage.removeItem("pn_name");
-        guestActions.style.display = "flex";
-        userActions.style.display = "none";
-        statusText.textContent = "Statut : Non connecté";
+      if (!session) {
+        loggedOut.style.display = "flex";
+        loggedIn.style.display = "none";
+        status.textContent = "Statut : non connecté";
+        return;
       }
+
+      const user = session.user;
+      const name =
+        user.user_metadata?.full_name ||
+        user.user_metadata?.name ||
+        user.user_metadata?.preferred_username ||
+        "Agent";
+
+      loggedOut.style.display = "none";
+      loggedIn.style.display = "flex";
+      status.innerHTML = `Statut : <span class="ok">connecté</span> — ${name}`;
     }
 
-    function openModal() {
-      overlay.style.display = "flex";
-      overlay.setAttribute("aria-hidden", "false");
-      loginMsg.textContent = "";
-      username.value = "";
-      password.value = "";
-      setTimeout(() => username.focus(), 0);
-    }
-
-    function closeModal() {
-      overlay.style.display = "none";
-      overlay.setAttribute("aria-hidden", "true");
-    }
-
-    // Init
-    const already = localStorage.getItem("pn_logged") === "1";
-    if (already) setLoggedIn(true, localStorage.getItem("pn_name") || "Agent");
-    else setLoggedIn(false);
-
-    openLogin.addEventListener("click", openModal);
-    closeLogin.addEventListener("click", closeModal);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
-
-    doLogin.addEventListener("click", () => {
-      const u = username.value.trim().toLowerCase();
-      const p = password.value.trim().toLowerCase();
-
-      if (u === DEMO_USER && p === DEMO_PASS) {
-        setLoggedIn(true, "Agent Nexoria");
-        closeModal();
-      } else {
-        loginMsg.innerHTML = `<span class="error">Identifiants incorrects.</span> (test : agent / nexoria)`;
-      }
+    document.getElementById("loginDiscord").addEventListener("click", async () => {
+      status.textContent = "Redirection vers Discord...";
+      await supabase.auth.signInWithOAuth({
+        provider: "discord",
+        options: {
+          redirectTo: window.location.origin + window.location.pathname
+        }
+      });
     });
 
-    logout.addEventListener("click", () => setLoggedIn(false));
-
-    // Enter = login
-    password.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") doLogin.click();
+    document.getElementById("logout").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      await refreshUI();
     });
+
+    refreshUI();
+    supabase.auth.onAuthStateChange(() => refreshUI());
   </script>
 </body>
 </html>
