@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Police Nexorienne — Service & Protection</title>
-  <meta name="description" content="Site officiel (fictif) de la Police Nexorienne : urgences, services, signalements, prévention, recrutement." />
+  <title>Police Nexorienne — Accueil</title>
+  <meta name="description" content="Portail RP FiveM de la Police Nexorienne : infos, recrutement, services et contact." />
   <style>
     :root{
-      --bg:#0b1220;
-      --panel:#0f1a30;
-      --panel2:#101f3a;
+      --bg:#070b14;
+      --panel:#0e1730;
+      --panel2:#0c1327;
       --text:#eaf0ff;
       --muted:#b7c2e6;
       --line:rgba(255,255,255,.10);
@@ -20,47 +20,47 @@
       --radius: 18px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 80% -10%, rgba(77,163,255,.22), transparent 55%),
-        radial-gradient(900px 600px at 10% 10%, rgba(124,240,197,.14), transparent 55%),
-        linear-gradient(180deg, #070b14, var(--bg) 25%, #060a12);
+        radial-gradient(1200px 700px at 80% -10%, rgba(77,163,255,.20), transparent 55%),
+        radial-gradient(900px 600px at 10% 10%, rgba(124,240,197,.12), transparent 55%),
+        linear-gradient(180deg, #050812, var(--bg) 25%, #040712);
       overflow-x:hidden;
     }
     a{color:inherit}
     .container{width:min(1100px, 92vw); margin:0 auto;}
-    .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip:focus{left:16px;top:16px;width:auto;height:auto;padding:10px 12px;background:#000;border:1px solid var(--line);border-radius:12px;z-index:9999}
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14,23,48,.78), rgba(12,19,39,.55));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
 
-    /* Header */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(11,18,32,.80), rgba(11,18,32,.55));
+      background: linear-gradient(180deg, rgba(7,11,20,.82), rgba(7,11,20,.55));
       border-bottom:1px solid var(--line);
     }
     .nav{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
+      padding:14px 0; gap:14px;
     }
-    .brand{display:flex;align-items:center;gap:12px; min-width:200px;}
+    .brand{display:flex; align-items:center; gap:12px;}
     .badge{
       width:44px;height:44px;border-radius:14px;
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 50%),
-                  linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.65));
+                  linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
       box-shadow: 0 10px 22px rgba(0,0,0,.35);
       display:grid; place-items:center;
       border:1px solid rgba(255,255,255,.18);
     }
-    .badge svg{filter: drop-shadow(0 6px 10px rgba(0,0,0,.25))}
-    .brand h1{font-size:14px;line-height:1.1;margin:0}
+    .brand h1{font-size:14px; line-height:1.1; margin:0}
     .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
-    nav ul{list-style:none; display:flex; gap:10px; padding:0; margin:0; flex-wrap:wrap; justify-content:flex-end;}
+    nav ul{list-style:none; display:flex; gap:10px; padding:0; margin:0; flex-wrap:wrap;}
     nav a{
       text-decoration:none;
       padding:9px 12px;
@@ -69,16 +69,7 @@
       font-size:13px;
       color:var(--muted);
     }
-    nav a:hover, nav a:focus{
-      outline:none;
-      color:var(--text);
-      border-color: var(--line);
-      background: rgba(255,255,255,.05);
-    }
-    .cta{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+    nav a:hover{color:var(--text); border-color: var(--line); background: rgba(255,255,255,.05)}
     .btn{
       appearance:none; border:1px solid var(--line);
       background: rgba(255,255,255,.04);
@@ -95,7 +86,7 @@
       border-color: rgba(77,163,255,.35);
       background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
       color:#07111f;
-      font-weight:700;
+      font-weight:800;
     }
     .btn.danger{
       border-color: rgba(255,77,109,.35);
@@ -103,56 +94,35 @@
       color:#ffdbe2;
     }
 
-    /* Hero */
     .hero{padding:40px 0 18px}
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.3fr .9fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    .card{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(16,31,58,.75), rgba(15,26,48,.55));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
+    .heroGrid{display:grid; grid-template-columns: 1.25fr .75fr; gap:14px;}
     .heroMain{padding:26px}
     .kicker{
       display:inline-flex; align-items:center; gap:8px;
       border:1px solid var(--line);
-      padding:7px 10px;
-      border-radius:999px;
-      color:var(--muted);
-      font-size:12px;
+      padding:7px 10px; border-radius:999px;
+      color:var(--muted); font-size:12px;
       background: rgba(255,255,255,.03);
     }
     .hero h2{
       margin:14px 0 10px;
-      font-size: clamp(28px, 3vw, 40px);
+      font-size: clamp(28px, 3vw, 42px);
       line-height:1.05;
       letter-spacing:-.02em;
     }
-    .hero p{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:14.5px;
-      line-height:1.6;
-      max-width: 60ch;
-    }
-    .pillRow{display:flex;flex-wrap:wrap; gap:10px; margin-top:10px}
+    .hero p{margin:0 0 18px; color:var(--muted); font-size:14.5px; line-height:1.6; max-width:60ch}
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
     .pill{
       border:1px solid var(--line);
       padding:10px 12px;
       border-radius: 14px;
       background: rgba(255,255,255,.03);
-      min-width: 160px;
-      flex:1;
+      min-width: 160px; flex:1;
     }
     .pill strong{display:block; font-size:13px}
     .pill span{display:block; color:var(--muted); font-size:12px; margin-top:4px}
 
-    .heroSide{padding:18px; display:flex; flex-direction:column; gap:12px}
+    .side{padding:18px; display:flex; flex-direction:column; gap:12px}
     .sideBox{
       padding:16px;
       border-radius: 16px;
@@ -161,31 +131,23 @@
     }
     .sideBox h3{margin:0 0 8px; font-size:13px}
     .sideBox p{margin:0; color:var(--muted); font-size:12.5px; line-height:1.55}
-    .alert{
-      border-color: rgba(255,77,109,.28);
-      background: linear-gradient(180deg, rgba(255,77,109,.15), rgba(255,77,109,.06));
-    }
+    .alert{border-color: rgba(255,77,109,.28); background: linear-gradient(180deg, rgba(255,77,109,.15), rgba(255,77,109,.06));}
+    .ok{color: rgba(124,240,197,.95)}
+    .warn{color: rgba(255,219,226,.95)}
+    .fine{font-size:11.5px; color:rgba(183,194,230,.88); line-height:1.5}
 
-    /* Sections */
     section{padding:22px 0}
-    .sectionTitle{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
-      margin-bottom:14px;
-    }
-    .sectionTitle h3{margin:0; font-size:16px; letter-spacing:.01em}
+    .sectionTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:14px;}
+    .sectionTitle h3{margin:0; font-size:16px}
     .sectionTitle p{margin:0; color:var(--muted); font-size:12.5px}
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:12px;
-    }
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px;}
     .tile{
       grid-column: span 4;
       padding:16px;
       border-radius: 18px;
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(16,31,58,.65), rgba(15,26,48,.45));
+      background: linear-gradient(180deg, rgba(14,23,48,.65), rgba(12,19,39,.45));
       box-shadow: 0 12px 26px rgba(0,0,0,.25);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       min-height: 130px;
@@ -193,54 +155,15 @@
     .tile:hover{transform: translateY(-2px); background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.16)}
     .tile h4{margin:10px 0 6px; font-size:14px}
     .tile p{margin:0; color:var(--muted); font-size:12.5px; line-height:1.55}
-    .icon{
-      width:36px;height:36px;border-radius:12px;
-      display:grid;place-items:center;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .icon svg{opacity:.92}
     .tile .link{
       margin-top:12px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      font-size:12.5px;
-      color: rgba(234,240,255,.9);
-      text-decoration:none;
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12.5px; text-decoration:none;
       border-bottom:1px dashed rgba(255,255,255,.22);
       padding-bottom:2px;
     }
     .tile .link:hover{border-bottom-color: rgba(255,255,255,.45)}
-    .split{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:12px;
-    }
-    .panel{padding:18px}
-    .panel h4{margin:0 0 10px; font-size:14px}
-    .panel p{margin:0 0 12px; color:var(--muted); font-size:12.8px; line-height:1.6}
 
-    /* Forms */
-    form{display:grid; gap:10px}
-    label{font-size:12px; color:var(--muted)}
-    input, textarea, select{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      color:var(--text);
-      outline:none;
-    }
-    textarea{min-height:120px; resize:vertical}
-    input:focus, textarea:focus, select:focus{border-color: rgba(77,163,255,.45); box-shadow: 0 0 0 3px rgba(77,163,255,.12)}
-    .row2{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
-    .fine{font-size:11.5px; color:rgba(183,194,230,.85); line-height:1.5}
-    .ok{color: rgba(124,240,197,.95)}
-    .warn{color: rgba(255,219,226,.95)}
-
-    /* Footer */
     footer{
       padding:26px 0 34px;
       border-top:1px solid var(--line);
@@ -248,373 +171,143 @@
       color: var(--muted);
       font-size:12px;
     }
-    .foot{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap;
-    }
+    .foot{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap;}
     .miniLinks{display:flex; gap:10px; flex-wrap:wrap}
     .miniLinks a{color:var(--muted); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.18)}
     .miniLinks a:hover{color:var(--text); border-bottom-color: rgba(255,255,255,.4)}
 
-    /* Responsive */
     @media (max-width: 900px){
       .heroGrid{grid-template-columns: 1fr}
-      .split{grid-template-columns: 1fr}
       .tile{grid-column: span 6}
     }
     @media (max-width: 560px){
       nav ul{display:none}
       .tile{grid-column: span 12}
-      .row2{grid-template-columns: 1fr}
-      .brand{min-width:auto}
     }
   </style>
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header>
-  <div class="container nav" role="navigation" aria-label="Navigation principale">
+  <div class="container nav" aria-label="Navigation principale">
     <div class="brand">
-      <div class="badge" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2l3 6 6 .8-4.4 4.3 1 6-5.6-3-5.6 3 1-6L3 8.8 9 8l3-6z" stroke="rgba(7,17,31,.85)" stroke-width="1.6"/>
-        </svg>
-      </div>
+      <div class="badge" aria-hidden="true">🛡️</div>
       <div>
         <h1>Police Nexorienne</h1>
-        <p>Service • Protection • Proximité</p>
+        <p>RP FiveM — Service • Protection • Proximité</p>
       </div>
     </div>
 
-    <nav aria-label="Sections">
+    <nav aria-label="Pages">
       <ul>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#prevention">Prévention</a></li>
-        <li><a href="#signalement">Signalement</a></li>
-        <li><a href="#recrutement">Recrutement</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="service.html">Services</a></li>
       </ul>
     </nav>
 
-    <div class="cta">
-      <a class="btn danger" href="#urgence" title="Aller aux numéros d'urgence">Urgence</a>
-      <a class="btn primary" href="#signalement">Faire un signalement</a>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+      <a class="btn danger" href="#infos">Urgences RP</a>
+      <a class="btn primary" href="service.html">Voir les services</a>
     </div>
   </div>
 </header>
 
-<main id="contenu" class="container">
-  <section class="hero" aria-label="Accueil">
+<main class="container">
+  <section class="hero">
     <div class="heroGrid">
       <div class="card heroMain">
-        <span class="kicker" aria-label="Bannière">
-          <span aria-hidden="true">🛡️</span> Portail officiel — République de Nexoria
-        </span>
-
-        <h2>Une police moderne, proche de vous.</h2>
+        <span class="kicker">📌 Portail officiel (fictif) — République de Nexoria</span>
+        <h2>Bienvenue au Commissariat Central.</h2>
         <p>
-          Bienvenue sur le portail de la <strong>Police Nexorienne</strong>. Retrouvez les services clés,
-          les informations de prévention et un formulaire de signalement. Ce site est un modèle fictif.
+          Ce site sert de <strong>hub RP</strong> pour la Police Nexorienne : présentation, services,
+          et infos utiles pour les citoyens et les agents.
         </p>
 
-        <div class="pillRow" role="list">
-          <div class="pill" role="listitem">
-            <strong>Interventions</strong>
-            <span>Urgences, patrouilles, assistance</span>
+        <div class="pillRow">
+          <div class="pill">
+            <strong>Patrouilles</strong>
+            <span>Présence terrain & interventions RP</span>
           </div>
-          <div class="pill" role="listitem">
-            <strong>Cyber & Fraudes</strong>
-            <span>Conseils, signalements, accompagnement</span>
+          <div class="pill">
+            <strong>Enquêtes</strong>
+            <span>Procédures, preuves, suivi RP</span>
           </div>
-          <div class="pill" role="listitem">
-            <strong>Proximité</strong>
-            <span>Postes de quartier, médiation</span>
+          <div class="pill">
+            <strong>Accueil</strong>
+            <span>Orientation & rendez-vous RP</span>
           </div>
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px">
-          <a class="btn primary" href="#services">Découvrir les services</a>
-          <a class="btn" href="#prevention">Voir la prévention</a>
-          <a class="btn" href="#recrutement">Rejoindre la Police Nexorienne</a>
+          <a class="btn primary" href="service.html">Accéder aux services</a>
+          <a class="btn" href="#recrutement">Recrutement</a>
+          <a class="btn" href="#contact">Contact</a>
         </div>
       </div>
 
-      <aside class="card heroSide" aria-label="Encarts">
-        <div class="sideBox alert" id="urgence">
-          <h3>Urgences</h3>
+      <aside class="card side">
+        <div class="sideBox alert" id="infos">
+          <h3>Urgences RP</h3>
           <p>
-            En cas de danger immédiat : <strong>police</strong>
+            <strong>112</strong> (exemple) — Danger immédiat<br/>
+            <strong>17</strong> (exemple) — Police
           </p>
+          <p class="fine warn" style="margin-top:10px">⚠️ Fictif / RP : aucun service réel.</p>
         </div>
 
         <div class="sideBox">
-          <h3>Info rapide</h3>
-          <p>Horaires d’accueil : <strong>Lun–Sam</strong>, 24/7. Services en ligne 24/7.</p>
+          <h3>Horaires d’accueil</h3>
+          <p>Lun–Sam : 08:00–20:00 (exemple)<br/>Services RP : 24/7 selon effectifs.</p>
         </div>
 
         <div class="sideBox">
-          <h3>Dernier bulletin</h3>
-          <p><strong>Vigilance</strong> : campagnes de phishing en hausse — active la double authentification.</p>
-          <p class="fine ok" style="margin-top:10px">✓ Conseils disponibles dans “Prévention”.</p>
+          <h3>Annonce RP</h3>
+          <p><span class="ok">✓</span> Opération “Bouclier” : contrôles renforcés en centre-ville (RP).</p>
         </div>
       </aside>
     </div>
   </section>
 
-  <section id="services" aria-label="Services">
-    <div class="sectionTitle">
-      <h3>Services</h3>
-      <p>Accès rapide aux démarches les plus utilisées.</p>
-    </div>
-
-    <div class="grid">
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2l8 4v6c0 5-3.5 9.4-8 10-4.5-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Plainte & main courante</h4>
-        <p>Déposer une plainte (selon cas), déclarer un incident, suivre un dossier (modèle).</p>
-        <a class="link" href="#signalement">Déposer un signalement →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 20V10l8-6 8 6v10" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Postes & commissariats</h4>
-        <p>Consulter les postes par district, horaires, accessibilité et accueil.</p>
-        <a class="link" href="#contact">Voir les contacts →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3v18" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M3 12h18" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M7 7l10 10" stroke="currentColor" stroke-width="1.6" opacity=".65"/>
-          </svg>
-        </div>
-        <h4>Objets trouvés</h4>
-        <p>Déclarer un objet perdu/trouvé, déposer une demande de restitution (modèle).</p>
-        <a class="link" href="#contact">Contacter l’accueil →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M8 21h8a3 3 0 0 0 3-3v-7a7 7 0 1 0-14 0v7a3 3 0 0 0 3 3z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M10 21v-2m4 2v-2" stroke="currentColor" stroke-width="1.6" opacity=".7"/>
-          </svg>
-        </div>
-        <h4>Protection & assistance</h4>
-        <p>Aide aux victimes, accompagnement, dispositifs de protection (modèle).</p>
-        <a class="link" href="#contact">Demander une aide →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Réglementation</h4>
-        <p>Rappels et textes de référence (fictifs) : circulation, nuisances, événements.</p>
-        <a class="link" href="#prevention">Voir les bonnes pratiques →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M12 3v12" stroke="currentColor" stroke-width="1.6" opacity=".7"/>
-            <path d="M5 21h14" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Téléchargements</h4>
-        <p>Formulaires, affiches de prévention, guides cyber (modèle).</p>
-        <a class="link" href="#prevention">Télécharger les guides →</a>
-      </article>
-    </div>
-  </section>
-
-  <section id="prevention" aria-label="Prévention">
-    <div class="sectionTitle">
-      <h3>Prévention</h3>
-      <p>Conseils rapides pour réduire les risques.</p>
-    </div>
-
-    <div class="card panel">
-      <div class="split">
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>3 réflexes essentiels</h4>
-          <p>• Vérifie l’identité avant de payer (phishing / arnaques).<br/>
-             • Protège tes comptes : mots de passe uniques + 2FA.<br/>
-             • En cas de menace, note les faits (heure, lieu, témoins) et signale rapidement.</p>
-          <p class="fine">Ces contenus sont des exemples. Je peux les adapter à ton univers RP (FiveM, etc.).</p>
-        </div>
-
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>Bulletins</h4>
-          <p><strong>Cyber</strong> : fausses convocations et liens piégés.<br/>
-             <strong>Route</strong> : contrôles renforcés aux axes principaux.<br/>
-             <strong>Quartiers</strong> : médiation pour nuisances nocturnes.</p>
-          <a class="btn" href="#signalement">Signaler un fait</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="signalement" aria-label="Signalement">
-    <div class="sectionTitle">
-      <h3>Faire un signalement</h3>
-      <p>Formulaire démo (envoi simulé).</p>
-    </div>
-
-    <div class="card panel">
-      <div class="split">
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>Formulaire</h4>
-          <form id="reportForm">
-            <div class="row2">
-              <div>
-                <label for="name">Nom / alias</label>
-                <input id="name" name="name" placeholder="Ex. Nexo42" autocomplete="name" />
-              </div>
-              <div>
-                <label for="district">District</label>
-                <select id="district" name="district">
-                  <option value="Centre">Centre</option>
-                  <option value="Nord">Nord</option>
-                  <option value="Sud">Sud</option>
-                  <option value="Est">Est</option>
-                  <option value="Ouest">Ouest</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row2">
-              <div>
-                <label for="type">Type d’incident</label>
-                <select id="type" name="type">
-                  <option value="Vol">Vol</option>
-                  <option value="Agression">Agression</option>
-                  <option value="Fraude">Fraude</option>
-                  <option value="Nuisances">Nuisances</option>
-                  <option value="Autre">Autre</option>
-                </select>
-              </div>
-              <div>
-                <label for="when">Date / heure</label>
-                <input id="when" name="when" placeholder="Ex. 29/01/2026 19:45" />
-              </div>
-            </div>
-
-            <div>
-              <label for="details">Détails</label>
-              <textarea id="details" name="details" placeholder="Décris les faits : lieu, personnes, véhicule, preuves, témoins…"></textarea>
-            </div>
-
-            <button class="btn primary" type="submit">Envoyer (simulation)</button>
-            <div id="formMsg" class="fine" role="status" aria-live="polite"></div>
-          </form>
-        </div>
-
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>Ce qu’on te demandera</h4>
-          <p>
-            • Lieu précis et heure approximative<br/>
-            • Description des personnes / objets<br/>
-            • Éléments de preuve (captures, témoins)<br/>
-            • Tes coordonnées pour suivi (si nécessaire)
-          </p>
-          <p class="fine">
-            Astuce RP : tu peux connecter ce formulaire à un webhook Discord ou à une base de données.
-            Si tu me dis ta stack (FiveM/ESX/QBCore, Discord, etc.), je te donne l’intégration.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="recrutement" aria-label="Recrutement">
+  <section id="recrutement">
     <div class="sectionTitle">
       <h3>Recrutement</h3>
-      <p>Rejoins la Police Nexorienne (modèle).</p>
+      <p>Rejoins la Police Nexorienne (RP).</p>
     </div>
 
     <div class="grid">
       <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
         <h4>Gardien de la paix</h4>
-        <p>Patrouille, intervention, relation citoyenne, procédures (fictif).</p>
+        <p>Patrouille, radio, contrôle, procédures, relation citoyenne.</p>
         <a class="link" href="#contact">Candidater →</a>
       </article>
-
       <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 4h16v12H4z" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M8 20h8" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M9 9h6" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Cyber-unité</h4>
-        <p>Enquêtes numériques, fraudes, OSINT, prévention cyber (fictif).</p>
-        <a class="link" href="#contact">Postuler →</a>
-      </article>
-
-      <article class="tile">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M6 9l6-6 6 6" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M6 15l6 6 6-6" stroke="currentColor" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h4>Unités spécialisées</h4>
-        <p>Maintien de l’ordre, trafic, K9, intervention (fictif).</p>
+        <h4>Brigade routière</h4>
+        <p>Accidents, infractions, escortes, prévention et opérations RP.</p>
         <a class="link" href="#contact">En savoir plus →</a>
+      </article>
+      <article class="tile">
+        <h4>Unité d’enquête</h4>
+        <p>Scènes, indices, interrogatoires, dossiers et coopération RP.</p>
+        <a class="link" href="#contact">Postuler →</a>
       </article>
     </div>
   </section>
 
-  <section id="contact" aria-label="Contact">
+  <section id="contact">
     <div class="sectionTitle">
       <h3>Contact</h3>
-      <p>Coordonnées d’exemple, à remplacer.</p>
+      <p>À remplacer par tes infos (Discord / forum / serveur).</p>
     </div>
 
-    <div class="card panel">
-      <div class="split">
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>Coordonnées</h4>
-          <p>
-            <strong>Commissariat central</strong><br/>
-            Avenue du Bouclier, 1000 Nexoria-Centre<br/>
-            Tél. : +00 000 000 000 (exemple)<br/>
-            Email : contact@nexoria-police.example
-          </p>
-          <p class="fine">Je peux ajouter une carte (OpenStreetMap) ou une page “Postes par district”.</p>
-        </div>
-
-        <div class="panel card" style="background:rgba(255,255,255,.03)">
-          <h4>Horaires</h4>
-          <p>
-            Accueil : Lun–Sam 08:00–20:00<br/>
-            Permanence : 24/7 (selon service, fictif)
-          </p>
-          <p class="fine">Pour une version RP, je peux intégrer un planning et une “liste des unités en service”.</p>
-        </div>
-      </div>
+    <div class="card" style="padding:18px;">
+      <p style="margin:0; color:var(--muted); line-height:1.6">
+        <strong>Commissariat Central</strong><br/>
+        Avenue du Bouclier, Nexoria-Centre (RP)<br/>
+        Discord : <em>à remplacer</em> • Email : <em>à remplacer</em>
+      </p>
+      <p class="fine" style="margin-top:10px">
+        Astuce : je peux ajouter un bouton Discord + une section “Code radio / procédures”.
+      </p>
     </div>
   </section>
 </main>
@@ -623,46 +316,16 @@
   <div class="container foot">
     <div>
       <strong>Police Nexorienne</strong><br/>
-      <span class="fine">Site fictif / template. Aucun service réel.</span>
+      <span class="fine">Site fictif RP FiveM — aucun service réel.</span>
     </div>
     <div class="miniLinks" aria-label="Liens">
-      <a href="#services">Services</a>
-      <a href="#prevention">Prévention</a>
-      <a href="#signalement">Signalement</a>
+      <a href="index.html">Accueil</a>
+      <a href="service.html">Services</a>
       <a href="#recrutement">Recrutement</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
 </footer>
 
-<script>
-  // Formulaire: simulation d'envoi
-  const form = document.getElementById('reportForm');
-  const msg = document.getElementById('formMsg');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim() || "Anonyme";
-    const district = document.getElementById('district').value;
-    const type = document.getElementById('type').value;
-    const when = document.getElementById('when').value.trim() || "Non précisé";
-    const details = document.getElementById('details').value.trim();
-
-    if (!details || details.length < 10) {
-      msg.textContent = "Ajoute un peu plus de détails (au moins 10 caractères).";
-      msg.className = "fine warn";
-      return;
-    }
-
-    // Ici tu pourrais envoyer vers un backend / webhook
-    const payload = { name, district, type, when, details, createdAt: new Date().toISOString() };
-    console.log("Signalement (simulation):", payload);
-
-    msg.textContent = `Signalement envoyé (simulation). Merci, ${name}. Réf: NX-${Math.random().toString(16).slice(2,8).toUpperCase()}`;
-    msg.className = "fine ok";
-    form.reset();
-  });
-</script>
 </body>
 </html>
