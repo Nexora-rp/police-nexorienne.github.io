@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Police Nexorienne — Communiqué</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:20px;
+      background:#070b14;
+      color:#eaf0ff;
+    }
+    a{color:#7cf0c5; text-decoration:none}
+    a:hover{text-decoration:underline}
+    .box{max-width:900px; margin:0 auto}
+    .meta{color:#b7c2e6; font-size:13px; margin-top:6px}
+    .content{
+      margin-top:16px;
+      padding:16px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      white-space:pre-wrap;
+      line-height:1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="communiques.html">← Tous les communiqués</a></p>
+
+    <h1 id="titre">Chargement…</h1>
+    <div class="meta" id="meta"></div>
+    <div class="content" id="contenu"></div>
+  </div>
+
+  <!-- données -->
+  <script src="communiques.js?v=1"></script>
+
+  <!-- logique -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = (params.get("id") || "").trim();
+
+    const titreEl = document.getElementById("titre");
+    const metaEl = document.getElementById("meta");
+    const contenuEl = document.getElementById("contenu");
+
+    if (!id) {
+      titreEl.textContent = "Communiqué introuvable";
+      contenuEl.textContent =
+        "Aucun identifiant dans l’URL.\nRetourne à la liste et clique sur « Lire → ».";
+    } else {
+      const list = window.COMMUNIQUES || [];
+      const c = list.find(x => String(x.id) === id);
+
+      if (!c) {
+        titreEl.textContent = "Communiqué introuvable";
+        contenuEl.textContent =
+          "ID demandé : " + id + "\n\nIDs disponibles :\n" +
+          list.map(x => "- " + x.id).join("\n");
+      } else {
+        titreEl.textContent = c.titre;
+        metaEl.textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
+        contenuEl.textContent = c.contenu;
+        document.title = "Police Nexorienne — " + c.titre;
+      }
+    }
+  </script>
+</body>
+</html>
