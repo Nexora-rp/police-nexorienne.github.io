@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Police Nexorienne</title>
 
   <style>
@@ -17,8 +17,11 @@
     }
     *{box-sizing:border-box}
     body{
-      margin:0; min-height:100vh;
-      display:flex; align-items:center; justify-content:center;
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background:
@@ -31,20 +34,34 @@
       width:min(560px, 92vw);
       border:1px solid var(--line);
       border-radius:18px;
-      padding:22px;
+      padding:26px;
       background: linear-gradient(180deg, rgba(14,23,48,.86), rgba(12,19,39,.62));
       text-align:center;
       box-shadow: 0 18px 40px rgba(0,0,0,.35);
     }
-    h1{margin:0 0 8px; font-size:28px}
-    .muted{color:var(--muted); font-size:13px; line-height:1.5}
-    .row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px}
-
+    h1{
+      margin:0 0 10px;
+      font-size:30px;
+      letter-spacing:-.02em;
+    }
+    p{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .row{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
     .btn{
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      padding:12px 14px;
+      padding:12px 18px;
       border-radius:999px;
       cursor:pointer;
       font-size:14px;
@@ -53,298 +70,40 @@
       align-items:center;
       gap:8px;
     }
-    .btn:hover{background: rgba(255,255,255,.09)}
+    .btn:hover{
+      background: rgba(255,255,255,.10);
+    }
     .btn.primary{
       border-color: rgba(77,163,255,.35);
       background: linear-gradient(135deg, rgba(77,163,255,.95), rgba(124,240,197,.55));
       color:#07111f;
-      font-weight:850;
+      font-weight:800;
     }
-
-    .status{margin-top:12px; font-size:13px; color:var(--muted); word-break:break-word}
-    .ok{color: rgba(124,240,197,.95)}
-    .warn{color:#ffdbe2}
-
-    /* Profil */
-    .profile{
-      display:none;
-      margin-top:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius:16px;
-      padding:12px;
-      text-align:left;
-    }
-    .profileRow{display:flex; align-items:center; gap:12px}
-    .avatar{
-      width:44px; height:44px; border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.2);
-      object-fit:cover;
-    }
-    .name{font-weight:800}
-    .sub{color:var(--muted); font-size:12.5px; margin-top:2px}
-    .chip{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+    footer{
+      margin-top:18px;
       font-size:12px;
       color:var(--muted);
-      margin-top:10px;
     }
   </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
   <div class="card">
     <h1>Police Nexorienne</h1>
-    <p class="muted">Connexion Agents via Discord (et mode démo pendant la maintenance)</p>
+    <p>
+      Site officiel RP FiveM de la Police Nexorienne.<br>
+      Informations, services et rôleplay.
+    </p>
 
-    <!-- Actions quand NON connecté -->
-    <div class="row" id="loggedOut">
-      <button class="btn primary" id="loginDiscord">Connexion Discord</button>
-      <button class="btn" id="loginDemo">Connexion test</button>
+    <div class="row">
+      <a class="btn primary" href="service.html">Services RP</a>
+      <a class="btn" href="#">Recrutement</a>
+      <a class="btn" href="#">Contact</a>
     </div>
 
-    <!-- Actions quand connecté -->
-    <div class="row" id="loggedIn" style="display:none;">
-      <a class="btn primary" href="service.html">Accéder aux services</a>
-      <button class="btn" id="logout">Déconnexion</button>
-    </div>
-
-    <!-- Profil (avatar + pseudo) -->
-    <div class="profile" id="profile">
-      <div class="profileRow">
-        <img class="avatar" id="avatar" alt="Avatar Discord" />
-        <div>
-          <div class="name" id="displayName">—</div>
-          <div class="sub" id="providerLine">—</div>
-        </div>
-      </div>
-      <div class="chip" id="whitelistChip">Whitelist : désactivée</div>
-    </div>
-
-    <div class="status" id="status">Statut : …</div>
+    <footer>
+      Site fictif RP — aucun service réel.
+    </footer>
   </div>
-
-  <script>
-    // =========================
-    // CONFIG
-    // =========================
-    const SITE_URL = "https://nexora-rp.github.io/police-nexorienne.github.io/";
-
-    // ✅ Mets tes vraies valeurs Supabase
-    const SUPABASE_URL = "https://kqasldzyfixbmpnjjvyc.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxYXNsZHp5Zml4Ym1wbmpqdnljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2Nzk2OTYsImV4cCI6MjA4NTI1NTY5Nn0.gVBcxqvYFq3cRwjWYgOZwjwGhnh5poXpEhUlnsQjKWA";
-
-    // Whitelist (désactivée par défaut)
-    const WHITELIST_ENABLED = false;
-
-    // Si activée, mets ici les Discord IDs autorisés (pas les pseudos)
-    // Exemple: ["123456789012345678", "987654321098765432"]
-    const ALLOWED_DISCORD_IDS = [];
-
-    // =========================
-    // ELEMENTS UI
-    // =========================
-    const loggedOut = document.getElementById("loggedOut");
-    const loggedIn  = document.getElementById("loggedIn");
-    const statusEl  = document.getElementById("status");
-
-    const profile   = document.getElementById("profile");
-    const avatarEl  = document.getElementById("avatar");
-    const nameEl    = document.getElementById("displayName");
-    const providerLine = document.getElementById("providerLine");
-    const whitelistChip = document.getElementById("whitelistChip");
-
-    // =========================
-    // DEMO SESSION (localStorage)
-    // =========================
-    function setDemoSession(on) {
-      if (on) {
-        localStorage.setItem("pn_demo", "1");
-        localStorage.setItem("pn_name", "Agent (Démo)");
-        localStorage.setItem("pn_avatar", "");
-        localStorage.setItem("pn_provider", "Démo");
-      } else {
-        localStorage.removeItem("pn_demo");
-        localStorage.removeItem("pn_name");
-        localStorage.removeItem("pn_avatar");
-        localStorage.removeItem("pn_provider");
-      }
-    }
-
-    function getDemoSession() {
-      return localStorage.getItem("pn_demo") === "1";
-    }
-
-    // =========================
-    // SUPABASE
-    // =========================
-    if (!window.supabase) {
-      statusEl.textContent = "ERREUR : Supabase JS ne charge pas (CDN bloqué).";
-      throw new Error("Supabase CDN not loaded");
-    }
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // =========================
-    // WHITELIST CHECK
-    // =========================
-    function whitelistStatusText() {
-      return WHITELIST_ENABLED ? "Whitelist : activée" : "Whitelist : désactivée";
-    }
-
-    function isAllowedDiscord(user) {
-      // Si whitelist désactivée → tout le monde OK
-      if (!WHITELIST_ENABLED) return true;
-
-      // Sur Supabase + Discord, l’ID Discord est souvent dans user.user_metadata.sub
-      // On gère plusieurs champs au cas où
-      const id =
-        user?.user_metadata?.sub ||
-        user?.user_metadata?.provider_id ||
-        user?.id; // fallback (id supabase)
-
-      return ALLOWED_DISCORD_IDS.includes(String(id));
-    }
-
-    // =========================
-    // UI REFRESH
-    // =========================
-    function showProfile({ name, avatarUrl, provider, allowed }) {
-      profile.style.display = "block";
-      nameEl.textContent = name || "Agent";
-      providerLine.textContent = "Source : " + (provider || "—");
-      whitelistChip.textContent = whitelistStatusText() + (allowed ? " ✅" : " ❌");
-
-      if (avatarUrl) {
-        avatarEl.src = avatarUrl;
-        avatarEl.style.display = "block";
-      } else {
-        avatarEl.removeAttribute("src");
-        avatarEl.style.display = "none";
-      }
-    }
-
-    function setLoggedInUI(on) {
-      loggedOut.style.display = on ? "none" : "flex";
-      loggedIn.style.display  = on ? "flex" : "none";
-    }
-
-    async function refreshUI() {
-      whitelistChip.textContent = whitelistStatusText();
-
-      // 1) Si démo active → connecté (local)
-      if (getDemoSession()) {
-        setLoggedInUI(true);
-        statusEl.innerHTML = `Statut : <span class="ok">connecté</span> (démo)`;
-        showProfile({
-          name: localStorage.getItem("pn_name") || "Agent (Démo)",
-          avatarUrl: localStorage.getItem("pn_avatar") || "",
-          provider: "Démo",
-          allowed: true
-        });
-        return;
-      }
-
-      // 2) Sinon → session Supabase
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        setLoggedInUI(false);
-        profile.style.display = "none";
-        statusEl.textContent = "Statut : non connecté";
-        return;
-      }
-
-      const user = session.user;
-
-      // Pseudo
-      const name =
-        user.user_metadata?.full_name ||
-        user.user_metadata?.name ||
-        user.user_metadata?.preferred_username ||
-        "Agent";
-
-      // Avatar Discord : Discord renvoie souvent "avatar_url"
-      const avatar =
-        user.user_metadata?.avatar_url ||
-        user.user_metadata?.picture ||
-        "";
-
-      const allowed = isAllowedDiscord(user);
-
-      if (!allowed) {
-        // Si whitelist activée et user non autorisé → on le déconnecte
-        await supabase.auth.signOut();
-        setLoggedInUI(false);
-        profile.style.display = "none";
-        statusEl.innerHTML = `Statut : <span class="warn">refusé</span> (non whitelist)`;
-        return;
-      }
-
-      setLoggedInUI(true);
-      statusEl.innerHTML = `Statut : <span class="ok">connecté</span> — ${name}`;
-
-      showProfile({
-        name,
-        avatarUrl: avatar,
-        provider: "Discord",
-        allowed: true
-      });
-    }
-
-    // =========================
-    // EVENTS
-    // =========================
-    document.getElementById("loginDemo").addEventListener("click", async () => {
-      setDemoSession(true);
-      await refreshUI();
-    });
-
-    document.getElementById("loginDiscord").addEventListener("click", async () => {
-      try {
-        statusEl.textContent = "Redirection vers Discord...";
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: "discord",
-          options: { redirectTo: SITE_URL }
-        });
-        if (error) throw error;
-      } catch (e) {
-        statusEl.textContent = "ERREUR : " + (e?.message || e);
-      }
-    });
-
-    document.getElementById("logout").addEventListener("click", async () => {
-      setDemoSession(false);
-      await supabase.auth.signOut();
-      await refreshUI();
-    });
-
-    refreshUI();
-    supabase.auth.onAuthStateChange(() => refreshUI());
-  </script>
-
-  <script>
-  const statusEl = document.getElementById("status") || (() => {
-    const d = document.createElement("div");
-    d.style.color = "#ffdbe2";
-    d.style.marginTop = "12px";
-    document.body.appendChild(d);
-    return d;
-  })();
-
-  window.addEventListener("error", (e) => {
-    statusEl.textContent = "ERREUR JS : " + (e?.message || e);
-  });
-
-  window.addEventListener("unhandledrejection", (e) => {
-    statusEl.textContent = "PROMISE ERREUR : " + (e?.reason?.message || e?.reason || e);
-  });
-</script>
 </body>
 </html>
