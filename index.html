@@ -328,5 +328,23 @@
     refreshUI();
     supabase.auth.onAuthStateChange(() => refreshUI());
   </script>
+
+  <script>
+  const statusEl = document.getElementById("status") || (() => {
+    const d = document.createElement("div");
+    d.style.color = "#ffdbe2";
+    d.style.marginTop = "12px";
+    document.body.appendChild(d);
+    return d;
+  })();
+
+  window.addEventListener("error", (e) => {
+    statusEl.textContent = "ERREUR JS : " + (e?.message || e);
+  });
+
+  window.addEventListener("unhandledrejection", (e) => {
+    statusEl.textContent = "PROMISE ERREUR : " + (e?.reason?.message || e?.reason || e);
+  });
+</script>
 </body>
 </html>
