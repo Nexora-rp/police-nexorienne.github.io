@@ -3,53 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Police Nexorienne — Communiqué</title>
+  <title>Police Nexorienne — Communiqués</title>
   <style>
     body{font-family:Arial, sans-serif; margin:20px; background:#070b14; color:#eaf0ff}
     a{color:#7cf0c5; text-decoration:none}
     a:hover{text-decoration:underline}
     .box{max-width:900px; margin:0 auto}
-    .meta{color:#b7c2e6; font-size:13px; margin-top:6px}
-    .content{margin-top:16px; padding:14px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04); white-space:pre-wrap; line-height:1.6}
+    .item{border:1px solid rgba(255,255,255,.12); padding:14px; border-radius:12px; margin:12px 0; background:rgba(255,255,255,.04)}
+    .meta{color:#b7c2e6; font-size:13px; margin-top:4px}
+    .top{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap}
   </style>
 </head>
 <body>
   <div class="box">
-    <p><a href="communiques.html">← Tous les communiqués</a></p>
+    <div class="top">
+      <h1>Communiqués</h1>
+      <p style="margin:0"><a href="index.html">← Retour à l’accueil</a></p>
+    </div>
 
-    <h1 id="titre">Communiqué</h1>
-    <div class="meta" id="meta"></div>
-    <div class="content" id="contenu"></div>
+    <div id="liste"></div>
   </div>
 
   <script src="communiques.js?v=1"></script>
-  
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = (params.get("id") || "").trim();
+    const box = document.getElementById("liste");
 
-    const titreEl = document.getElementById("titre");
-    const metaEl = document.getElementById("meta");
-    const contenuEl = document.getElementById("contenu");
+    const items = (window.COMMUNIQUES || [])
+      .slice()
+      .sort((a,b) => b.date.localeCompare(a.date));
 
-    if (!id) {
-      titreEl.textContent = "Communiqué introuvable";
-      contenuEl.textContent = "Aucun identifiant dans l’URL.\nRetourne à la liste et clique sur “Lire →”.";
+    if (!items.length) {
+      box.textContent = "Aucun communiqué pour le moment.";
     } else {
-      const list = window.COMMUNIQUES || [];
-      const c = list.find(x => String(x.id).trim() === id);
-
-      if (!c) {
-        titreEl.textContent = "Communiqué introuvable";
-        contenuEl.textContent =
-          "ID reçu : " + id + "\n\nIDs disponibles :\n" +
-          list.map(x => "- " + x.id).join("\n");
-      } else {
-        titreEl.textContent = c.titre;
-        metaEl.textContent = `${c.date}${c.tag ? " — " + c.tag : ""}`;
-        contenuEl.textContent = c.contenu;
-        document.title = "Police Nexorienne — " + c.titre;
-      }
+      box.innerHTML = items.map(c => `
+        <article class="item">
+          <div><strong>${c.titre}</strong></div>
+          <div class="meta">${c.date}${c.tag ? " — " + c.tag : ""}</div>
+          <div style="margin-top:10px">
+            <a href="communique.html?id=${encodeURIComponent(c.id)}">Lire →</a>
+          </div>
+        </article>
+      `).join("");
     }
   </script>
 </body>
