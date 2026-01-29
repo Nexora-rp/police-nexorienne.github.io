@@ -2,62 +2,61 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Police Nexorienne — Services</title>
+
   <style>
-    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Arial;background:#070b14;color:#eaf0ff;padding:24px}
-    .card{width:min(680px,92vw);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;background:#0e1730}
-    .muted{color:#b7c2e6;font-size:13px;line-height:1.5}
-    .btn{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#eaf0ff;padding:12px 14px;border-radius:999px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
-    .btn.primary{background:linear-gradient(135deg,#4da3ff,#7cf0c5);color:#07111f;font-weight:800;border-color:rgba(77,163,255,.35)}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: Arial, Helvetica, sans-serif;
+      background:#070b14;
+      color:#eaf0ff;
+      padding:24px;
+    }
+    .card{
+      width:min(720px, 92vw);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:26px;
+      background:#0e1730;
+    }
+    h1{margin:0 0 10px}
+    p{color:#b7c2e6; line-height:1.6}
+    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color:#eaf0ff;
+      padding:12px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      font-size:14px;
+    }
+    .btn:hover{background: rgba(255,255,255,.10)}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
   <div class="card">
-    <h1 style="margin:0 0 8px">Services RP</h1>
-    <p class="muted" id="line">Vérification de la connexion…</p>
+    <h1>Services RP</h1>
+    <p>
+      Bienvenue sur la page des services RP de la Police Nexorienne.
+    </p>
+
+    <ul>
+      <li>Dépôt de plainte RP</li>
+      <li>Convocations RP</li>
+      <li>Rendez-vous RP</li>
+      <li>Informations citoyennes</li>
+    </ul>
 
     <div class="row">
-      <a class="btn" href="index.html">Retour</a>
-      <a class="btn primary" href="#" onclick="alert('À remplir ensuite : contenu services RP'); return false;">Ouvrir un service</a>
+      <a class="btn" href="index.html">← Retour à l’accueil</a>
     </div>
   </div>
-
-  <script>
-    const SITE_URL = "https://nexora-rp.github.io/police-nexorienne.github.io/";
-    const SUPABASE_URL = "https://kqasldzyfixbmpnjjvyc.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxYXNsZHp5Zml4Ym1wbmpqdnljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2Nzk2OTYsImV4cCI6MjA4NTI1NTY5Nn0.gVBcxqvYFq3cRwjWYgOZwjwGhnh5poXpEhUlnsQjKWA";
-
-    const line = document.getElementById("line");
-
-    // Démo ?
-    const isDemo = localStorage.getItem("pn_demo") === "1";
-    if (isDemo) {
-      line.textContent = "Connecté (démo) — accès autorisé.";
-    } else {
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      (async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-
-        if (!session) {
-          // Pas connecté → retour accueil
-          window.location.href = SITE_URL + "index.html";
-          return;
-        }
-
-        const user = session.user;
-        const name =
-          user.user_metadata?.full_name ||
-          user.user_metadata?.name ||
-          user.user_metadata?.preferred_username ||
-          "Agent";
-
-        line.textContent = "Connecté — " + name + ". Accès autorisé.";
-      })();
-    }
-  </script>
 </body>
 </html>
