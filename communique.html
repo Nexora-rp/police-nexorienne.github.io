@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Police Nexorienne — Communiqué</title>
+</head>
+<body>
+  <p><a href="communiques.html">← Tous les communiqués</a></p>
+  <h1 id="titre">Communiqué</h1>
+  <div id="meta"></div>
+  <pre id="contenu" style="white-space:pre-wrap;"></pre>
+
+  <script src="communiques.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+
+    const c = (window.COMMUNIQUES || []).find(x => x.id === id);
+
+    if (!c) {
+      document.getElementById("titre").textContent = "Communiqué introuvable";
+      document.getElementById("meta").textContent = "";
+      document.getElementById("contenu").textContent = "Vérifie le lien.";
+    } else {
+      document.getElementById("titre").textContent = c.titre;
+      document.getElementById("meta").textContent = `${c.date} — ${c.tag || ""}`;
+      document.getElementById("contenu").textContent = c.contenu;
+      document.title = "Police Nexorienne — " + c.titre;
+    }
+  </script>
+</body>
+</html>
